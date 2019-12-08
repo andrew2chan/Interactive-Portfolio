@@ -32,11 +32,11 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-    this.load.image('background', '../Background.png');
-    this.load.image('ground', '../Ground.png');
-    this.load.image('platforms', '../JumpPlatforms.png');
-    this.load.spritesheet('dude', '../SpriteSheet.png', {frameWidth: 16, frameHeight: 32 });
-    this.load.spritesheet('portal', '../PortalSpriteSheet.png', {frameWidth: 32, frameHeight: 32 });
+    this.load.image('background', 'Asset/Background.png');
+    this.load.image('ground', 'Asset/Ground.png');
+    this.load.image('platforms', 'Asset/JumpPlatforms.png');
+    this.load.spritesheet('dude', 'Asset/SpriteSheet.png', {frameWidth: 16, frameHeight: 32 });
+    this.load.spritesheet('portal', 'Asset/PortalSpriteSheet.png', {frameWidth: 32, frameHeight: 32 });
 
     this.game.scale.pageAlignHorizontally = true;
     this.game.scale.pageAlignVertically = true;
