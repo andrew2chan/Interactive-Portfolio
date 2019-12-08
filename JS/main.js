@@ -47,15 +47,21 @@ function create ()
     this.add.image(400, 300, 'background');
 
     platforms = this.physics.add.staticGroup();
+    //portal = this.physics.add.staticGroup();
 
     platforms.create(210, 130, 'platforms');
     platforms.create(100, 175, 'platforms').setScale(2,1.5).refreshBody();
     platforms.create(400, 200, 'ground');
 
     portal = this.physics.add.sprite(750, 170, 'portal');
+    portal2 = this.physics.add.sprite(500, 170, 'portal');
+
+    //portal.create(500, 170, 'portal');
+    //portal.create(750, 170, 'portal');
     player = this.physics.add.sprite(5, 25, 'dude');
 
     portal.body.allowGravity = false;
+    portal2.body.allowGravity = false;
 
     player.setBounce(0.1);
     player.setCollideWorldBounds(true);
@@ -113,7 +119,15 @@ function create ()
       if(cursors.down.isDown) {
         console.log("working");
       }
-    }, null, this)
+    }, null, this);
+
+    this.physics.add.overlap(player, portal2, function() {
+      if(cursors.down.isDown) {
+        console.log("working2");
+      }
+    }, null, this);
+
+    //portal.playAnimation('stand');
 
     var camera = this.scene.scene.cameras.main;
     camera.setBounds(0, 0, 800, 0);
@@ -125,6 +139,7 @@ var direction = 1;
 
 function update() {
   portal.anims.play('stand', true);
+  portal2.anims.play('stand', true);
 
   if (cursors.left.isDown) {
       player.setVelocityX(-90);
