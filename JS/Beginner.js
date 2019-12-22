@@ -18,10 +18,17 @@ class Beginner extends Phaser.Scene {
       this.game.scale.pageAlignVertically = true;
   }
 
+  playerPosition = {};
+
+  init (data) {
+    this.playerPosition.x = data.positionX;
+    this.playerPosition.y = data.positionY;
+  }
+
   portal = "";
   portal2 = "";
   cursors = "";
-  player = ""
+  player = "";
 
   create ()
   {
@@ -30,6 +37,9 @@ class Beginner extends Phaser.Scene {
       let platforms = this.physics.add.staticGroup();
       let boards = this.physics.add.staticGroup();
       //portal = this.physics.add.staticGroup();
+
+      this.portal = this.physics.add.sprite(750, 170, 'portal');
+      this.portal2 = this.physics.add.sprite(670, 85, 'portal');
 
       boards.create(30,170,'movementBoard');
       boards.create(700,170,'movementBoardTP');
@@ -43,12 +53,9 @@ class Beginner extends Phaser.Scene {
       platforms.create(100, 175, 'platforms').setScale(2,1.5).refreshBody();
       platforms.create(400, 200, 'ground');
 
-      this.portal = this.physics.add.sprite(750, 170, 'portal');
-      this.portal2 = this.physics.add.sprite(670, 85, 'portal');
-
       //portal.create(500, 170, 'portal');
       //portal.create(750, 170, 'portal');
-      this.player = this.physics.add.sprite(5, 25, 'dude');
+      this.player = this.physics.add.sprite(this.playerPosition.x, this.playerPosition.y, 'dude');
 
       this.portal.body.allowGravity = false;
       this.portal2.body.allowGravity = false;
@@ -107,7 +114,7 @@ class Beginner extends Phaser.Scene {
 
       this.physics.add.overlap(this.player, this.portal, function() {
         if(this.cursors.down.isDown) {
-          this.scene.start("AboutMe");
+          this.scene.start("AboutMe", {positionX: 30, positionY: 160});
         }
       }, null, this);
 
