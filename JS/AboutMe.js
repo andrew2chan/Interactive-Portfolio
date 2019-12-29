@@ -10,6 +10,8 @@ class AboutMe extends Phaser.Scene {
       this.load.image('ground', 'Asset/Ground.png');
       this.load.image('platforms', 'Asset/JumpPlatforms.png');
       this.load.image('introBoard', 'Asset/IntroNameBoard.png');
+      this.load.image('miniDescription', 'Asset/MiniDescription.png');
+      this.load.image('skills', 'Asset/Skills.png');
       this.load.spritesheet('dude', 'Asset/SpriteSheet.png', {frameWidth: 16, frameHeight: 32 });
       this.load.spritesheet('portal', 'Asset/PortalSpriteSheet.png', {frameWidth: 32, frameHeight: 32 });
 
@@ -39,6 +41,8 @@ class AboutMe extends Phaser.Scene {
       this.portal = this.physics.add.sprite(30, 170, 'portal');
 
       boards.create(100,170,'introBoard');
+      boards.create(300,160,'miniDescription');
+      boards.create(600,160,'skills');
 
       platforms.create(400, 200, 'ground');
 
