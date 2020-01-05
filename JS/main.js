@@ -10,7 +10,7 @@ var config = {
             gravity: { y: 300 }
         }
     },
-    scene: [Beginner, AboutMe],
+    scene: [Beginner, GameInterlude, AboutMe, ExperienceContact],
     scale: {
       mode: Phaser.Scale.FIT,
       autoCenter: Phaser.Scale.CENTER_BOTH,

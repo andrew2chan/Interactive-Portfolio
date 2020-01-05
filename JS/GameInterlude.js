@@ -1,7 +1,7 @@
-class Beginner extends Phaser.Scene {
+class GameInterlude extends Phaser.Scene {
   constructor()
   {
-    super({key:"Beginner"});
+    super({key:"GameInterlude"});
   }
 
   preload ()
@@ -9,8 +9,7 @@ class Beginner extends Phaser.Scene {
       this.load.image('background', 'Asset/Background.png');
       this.load.image('ground', 'Asset/Ground.png');
       this.load.image('platforms', 'Asset/JumpPlatforms.png');
-      this.load.image('movementBoard', 'Asset/MovementBoard.png');
-      this.load.image('movementBoardTP', 'Asset/MovementBoardTP.png');
+      this.load.image('spikes', 'Asset/Spikes.png');
       this.load.spritesheet('dude', 'Asset/SpriteSheet.png', {frameWidth: 16, frameHeight: 32 });
       this.load.spritesheet('portal', 'Asset/PortalSpriteSheet.png', {frameWidth: 32, frameHeight: 32 });
 
@@ -28,33 +27,32 @@ class Beginner extends Phaser.Scene {
   portal = "";
   portal2 = "";
   cursors = "";
-  player = "";
+  player = ""
 
   create ()
   {
       this.add.image(400, 300, 'background');
 
       let platforms = this.physics.add.staticGroup();
-      let boards = this.physics.add.staticGroup();
-      //portal = this.physics.add.staticGroup();
+      let spikes = this.physics.add.staticGroup();
 
-      this.portal = this.physics.add.sprite(750, 170, 'portal');
-      this.portal2 = this.physics.add.sprite(670, 85, 'portal');
+      this.portal = this.physics.add.sprite(30, 170, 'portal');
+      this.portal2 = this.physics.add.sprite(750, 170, 'portal');
 
-      boards.create(30,170,'movementBoard');
-      boards.create(700,170,'movementBoardTP');
-      boards.create(625,85,'movementBoardTP');
+      spikes.create(270,205,'spikes');
+      spikes.create(410,205,'spikes');
+      spikes.create(550,205,'spikes');
+      spikes.create(690,205,'spikes');
 
-      platforms.create(210, 130, 'platforms');
-      platforms.create(310, 95, 'platforms');
-      platforms.create(430, 130, 'platforms');
-      platforms.create(530, 95, 'platforms');
-      platforms.create(650, 115, 'platforms').setScale(3,1).refreshBody();
-      platforms.create(100, 175, 'platforms').setScale(2,1.5).refreshBody();
-      platforms.create(400, 200, 'ground');
+      //seems like the max distance for our jump is around 120 difference with currently gravity
+      platforms.create(290, 170, 'platforms');
+      platforms.create(360, 150, 'platforms');
+      platforms.create(400, 110, 'platforms');
+      platforms.create(340, 80, 'platforms');
+      platforms.create(480, 60, 'platforms').setScale(4,1).refreshBody();
+      platforms.create(100, 200, 'ground').setScale(0.25,1).refreshBody();
+      platforms.create(700, 200, 'ground').setScale(0.25,1).refreshBody();
 
-      //portal.create(500, 170, 'portal');
-      //portal.create(750, 170, 'portal');
       this.player = this.physics.add.sprite(this.playerPosition.x, this.playerPosition.y, 'dude');
 
       this.portal.body.allowGravity = false;
@@ -114,17 +112,22 @@ class Beginner extends Phaser.Scene {
 
       this.physics.add.overlap(this.player, this.portal, function() {
         if(this.cursors.down.isDown) {
+          this.scene.start("Beginner", { positionX: 670, positionY: 75 });
+        }
+      }, null, this);
+
+      spikes.children.each((spike) => {
+        this.physics.add.overlap(this.player, spike, function() {
+            this.scene.restart();
+        }, null, this);
+      });
+
+      this.physics.add.overlap(this.player, this.portal2, function() {
+        if(this.cursors.down.isDown) {
           this.scene.start("AboutMe", {positionX: 30, positionY: 160});
         }
       }, null, this);
 
-      this.physics.add.overlap(this.player, this.portal2, function() {
-        if(this.cursors.down.isDown) {
-          this.scene.start("GameInterlude", {positionX: 30, positionY: 160});
-        }
-      }, null, this);
-
-      //portal.playAnimation('stand');
       let camera = this.scene.scene.cameras.main;
       camera.setBounds(0, 0, 800, 0);
       camera.setZoom(3);
@@ -170,6 +173,7 @@ class Beginner extends Phaser.Scene {
         this.player.anims.play('jump-left', true);
       }
     }
+
   }
 
 }
