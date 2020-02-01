@@ -8,10 +8,9 @@ class ExperienceContact extends Phaser.Scene {
   {
       this.load.image('background', 'Asset/Background.png');
       this.load.image('ground', 'Asset/Ground.png');
-      this.load.image('platforms', 'Asset/JumpPlatforms.png');
-      this.load.image('introBoard', 'Asset/IntroNameBoard.png');
-      this.load.image('miniDescription', 'Asset/MiniDescription.png');
-      this.load.image('skills', 'Asset/Skills.png');
+      this.load.image('email', 'Asset/Email.png');
+      this.load.image('phone', 'Asset/Phone.png');
+      this.load.image('surveyprogrammer', 'Asset/SurveyProgrammer.png');
       this.load.spritesheet('dude', 'Asset/SpriteSheet.png', {frameWidth: 16, frameHeight: 32 });
       this.load.spritesheet('portal', 'Asset/PortalSpriteSheet.png', {frameWidth: 32, frameHeight: 32 });
 
@@ -27,7 +26,6 @@ class ExperienceContact extends Phaser.Scene {
   }
 
   portal = "";
-  portal2 = "";
   cursors = "";
   player = ""
 
@@ -36,13 +34,13 @@ class ExperienceContact extends Phaser.Scene {
       this.add.image(400, 300, 'background');
 
       let platforms = this.physics.add.staticGroup();
-      let boards = this.physics.add.staticGroup();
+      let information = this.physics.add.staticGroup();
 
       this.portal = this.physics.add.sprite(30, 170, 'portal');
 
-      boards.create(100,170,'introBoard');
-      boards.create(300,160,'miniDescription');
-      boards.create(600,160,'skills');
+      information.create(100, 157, 'email');
+      information.create(200, 157, 'phone');
+      information.create(380, 135, 'surveyprogrammer');
 
       platforms.create(400, 200, 'ground');
 
@@ -104,7 +102,7 @@ class ExperienceContact extends Phaser.Scene {
 
       this.physics.add.overlap(this.player, this.portal, function() {
         if(this.cursors.down.isDown) {
-          this.scene.start("Beginner", { positionX: 750, positionY: 165 });
+          this.scene.start("GameInterlude", { positionX: 750, positionY: 165 });
         }
       }, null, this);
 

@@ -124,7 +124,7 @@ class GameInterlude extends Phaser.Scene {
 
       this.physics.add.overlap(this.player, this.portal2, function() {
         if(this.cursors.down.isDown) {
-          this.scene.start("AboutMe", {positionX: 30, positionY: 160});
+          this.scene.start("ExperienceContact", {positionX: 30, positionY: 160});
         }
       }, null, this);
 
